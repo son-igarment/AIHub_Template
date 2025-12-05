@@ -1,0 +1,182 @@
+@use '../components' as *;
+
+.site-main,
+.site-footer {
+
+  // Buttons
+  .wrapper-button {
+    margin-bottom: 0;
+  }
+
+  button,
+  .button,
+  input[type="reset"],
+  input[type="submit"],
+  input[type="button"] {
+    @include button();
+
+    // Button sizes
+    &.button-small {
+      @include button-size-small();
+    }
+
+    &.button-large {
+      @include button-size-large();
+    }
+
+    // Button styles
+    &.button-ghost {
+      @include button-style-ghost();
+    }
+  }
+}
+
+// Labels
+legend,
+label {
+  color: var(--color-form-label-text);
+  font-size: var(--typography-size-input-fields);
+  font-weight: var(--typography-weight-semibold);
+}
+
+// Unset checkbox and radio button labels
+input + label {
+  // stylelint-disable-next-line font-weight-notation
+  font-weight: unset;
+}
+
+// Form input elements and textareas
+textarea,
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="search"] {
+  background-color: var(--color-background-input-field);
+  border-color: var(--color-border-forms);
+  border-radius: var(--border-radius-input-field);
+  border-style: solid;
+  border-width: var(--border-width-input-field);
+  color: var(--color-form-text);
+  font-family: var(--typography-family-paragraph);
+  font-size: var(--typography-size-input-fields);
+  line-height: var(--form-line-height);
+  margin-bottom: 0;
+  padding-bottom: var(--form-padding-vertical);
+  padding-left: var(--form-padding-horizontal);
+  padding-right: var(--form-padding-horizontal);
+  padding-top: var(--form-padding-vertical);
+  position: relative;
+  text-decoration: none;
+  transition: background .55s;
+
+  &::placeholder {
+    color: var(--color-placeholder);
+    opacity: var(--opacity-placeholder);
+  }
+
+  &:focus {
+    background-color: var(--color-background-input-field);
+    border-color: var(--color-border-forms-focus);
+    color: var(--color-form-text);
+
+    &::placeholder {
+      color: var(--color-placeholder-focus);
+      opacity: var(--opacity-placeholder-focus);
+    }
+  }
+}
+
+// Select drop downs
+select {
+  // doiuse-disable
+  appearance: none;
+  background-image: none;
+  border-color: var(--color-border-forms);
+  border-radius: var(--border-radius-select);
+  border-style: solid;
+  border-width: var(--border-width-input-field);
+  color: var(--color-form-text);
+  font-family: var(--typography-family-paragraph);
+  font-size: var(--typography-size-input-fields);
+  line-height: var(--form-line-height);
+  max-width: 100%;
+  min-width: 0;
+  padding-bottom: var(--form-padding-vertical);
+  padding-left: var(--form-padding-horizontal);
+  padding-right: var(--form-padding-horizontal);
+  padding-top: var(--form-padding-vertical);
+  text-indent: 1px;
+  transition: none;
+  width: 100%;
+}
+
+// Checkboxes & radio buttons
+// Learn about this technique:
+// @link https://moderncss.dev/pure-css-custom-checkbox-style/
+input[type="radio"],
+input[type="checkbox"] {
+  appearance: none;
+  background-color: var(--color-background-input-field);
+  border: 1px solid var(--color-border-forms);
+  color: currentColor;
+  display: grid;
+  // stylelint-disable-next-line property-disallowed-list
+  font: inherit;
+  height: var(--size-checkbox);
+  margin: 0;
+  place-content: center;
+  width: var(--size-checkbox);
+}
+
+// Round style radio buttons
+input[type="radio"]::before,
+input[type="radio"] {
+  border-radius: 50%;
+}
+
+// Square style checkboxes
+input[type="checkbox"]::before,
+input[type="checkbox"] {
+  border-radius: var(--border-radius-checkbox);
+}
+
+input[type="radio"]::before,
+input[type="checkbox"]::before {
+  background-color: var(--color-checkbox-checked);
+  border: 1px solid var(--color-checkbox-checked);
+  content: '';
+  height: var(--size-checkbox);
+  opacity: 0;
+  transform: scale(.8);
+  transition: transform .2s;
+  width: var(--size-checkbox);
+}
+
+input[type="radio"]:checked::before,
+input[type="checkbox"]:checked::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+input[type="radio"]:checked,
+input[type="checkbox"]:checked {
+  // Hide element visually on click so it creates a bouncy animation illusion
+  background-color: transparent;
+  border-color: transparent;
+}
+
+input[type="radio"]:hover,
+input[type="radio"] + label:hover,
+input[type="radio"]:focus,
+input[type="radio"] + label:focus,
+input[type="checkbox"]:hover,
+input[type="checkbox"] + label:hover,
+input[type="checkbox"]:focus,
+input[type="checkbox"] + label:focus {
+  cursor: pointer;
+}

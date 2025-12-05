@@ -1,0 +1,23 @@
+// CSS variables
+// Define names:
+// For AAA: https://www.color-blindness.com/color-name-hue/
+// For AA: https://chir.ag/projects/name-that-color/
+// ------------------------------------------------------
+:root {
+  --color-black: #0c1424;
+  --color-white: #f7f8fb;
+
+  // Main element colors
+  --color-accent: #d64045;
+  --color-heading: var(--color-black);
+  --color-main: #15233b;
+  --color-paragraph: #3f4a5a;
+
+  // Modern link
+  --color-link-text: var(--color-accent);
+  --color-link-text-hover: #0f2438;
+
+  // Element states
+  --color-error: #d7263d;
+  --color-success: #2c9a6a;
+}

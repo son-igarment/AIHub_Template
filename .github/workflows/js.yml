@@ -1,0 +1,26 @@
+name: JS
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Test JS
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+
+    - name: Read .nvmrc
+      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+      id: nvm
+
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+    - name: Install packages and test JS
+      run: |
+        npm i
+        npx eslint -c .eslintrc.js js/src/

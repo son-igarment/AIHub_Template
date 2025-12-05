@@ -1,0 +1,51 @@
+name: CSS
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Test styles
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+
+    - name: Read .nvmrc
+      run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+      id: nvm
+
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+    - name: Install packages
+      run: npm install
+
+    - name: Run stylelint
+      run: |
+        npx stylelint . --max-warnings 0 --config .stylelintrc
+
+    - name: Run gulp task devstyles
+      run: |
+        # Make the command visible
+        echo "Running npx gulp devstyles..."
+        npx gulp devstyles
+
+        # Capture the output
+        output=$(npx gulp devstyles 2>&1)
+
+        # Save it to a temporary file
+        echo "$output" > output.txt
+
+        # Check if the output contains the string "DEPRECATED" or "ERROR" or "WARNING"
+        if grep -q "DEPRECATED" output.txt || grep -q "ERROR" output.txt || grep -q "WARNING" output.txt; then
+          echo "Error found in output, failing build..."
+          exit 1
+        else
+          echo "No errors found in output."
+        fi
+
+        # Remove the temporary file
+        rm output.txt
